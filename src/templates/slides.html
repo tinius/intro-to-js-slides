@@ -1,0 +1,259 @@
+<div class="reveal">
+	<div class="slides">
+		<section class='title-slide'>
+			
+				<h1 class='pres-title'>Data journalism in JavaScript</h1>
+				<h3 class='pres-subtitle'>Niko Kommenda</h3>
+
+		</section>
+
+		<section>
+
+			<h2>Before we dive in</h2>
+
+			<ul>
+				<li>This talk assumes you have seen JavaScript code before ...</li>
+				<li>... but there should be something to take away for coders of different experience levels</li>
+			</ul>
+
+		</section>
+
+		<section>
+				<h2>What we'll be talking about</h2>
+			
+			<ol>
+				<li>Intro to modern JavaScript (ES6)</li>
+				<li>Working with different data formats</li>
+				<li>Using functional programming to analyse data</li>
+				<li>Useful libraries</li>
+				<li>A practical example</li>
+			</ol>
+
+		</section>
+
+		<section>
+			<h2>Intro to modern JavaScript</h2>
+
+			<ul>
+				<li></li>
+			</ul>
+
+		</section>
+
+		<section>
+				<h2>Key features in ES6</h2>
+	
+				<ul>
+
+					<li>let and const keywords</li>
+					<li>Smaller scope than var, which means code in faraway parts of your script doesn't change them</li>
+					<li>A const can't be changed once assigned. More about this in a moment!</li>
+
+					<li>"Fat arrow" functions</li>
+					<li>Shorter & more convenient syntax</li>
+					<li>Functionally the same as regular functions (unless you use `this`)</li>
+
+					<li>Modules</li>
+
+					<li>Promises (super handy but not covered in this talk)</li>
+
+				</ul>
+	
+		</section>
+
+		<section>
+			<h2>Working with different data formats</h2>
+		</section>
+
+		<section>
+
+			<h2>Why functional programming?</h2>
+
+			<ul>
+				<li>It keeps our code short</li>
+				<li>We use the same building blocks everywhere</li>
+				<li class='item--hl'>Every variable refers to the same value(s) throughout the code</li>
+			</ul>
+
+
+		</section>
+
+		<section>
+
+			<h2>Functional coding principles</h2>
+
+			<ul>
+				<li>Don’t change a variable once it’s been assigned a value (use const)</li>
+				<li>Avoid while and for loops</li>
+				<li>Use Array.map, Array.filter, Array.reduce</li>
+			</ul>
+
+
+		</section>
+
+		<section>
+
+			<h2>An example dataset</h2>
+
+			<ul>
+				<li>
+					A table of coffee orders ...
+
+			<table>
+				<thead>
+					<tr><td>customer</td><td>drink</td><td>price</td></tr>
+				</thead>
+				<tbody>
+
+					{{#each orders}}
+
+					<tr><td>{{customer}}</td><td>{{drink}}</td><td>{{price}}</td></tr>
+
+					{{/each}}
+
+				</tbody>
+			</table>
+
+			</li>
+
+			<li>... and the same data in JSON</li>
+			
+			<pre>
+<code class='language-js'>{{{ ordersStr }}}</code>
+			</pre>
+			
+		</section>
+
+		<!-- ARRAY.FILTER -->
+
+		<section>
+
+			<h2>Array.filter</h2>
+
+			<ul>
+				<li>Runs a function on each element of the array</li>
+				<li>Keeps an element only if the function returns true</li>
+				<li>Example: Get only Monica's orders
+
+
+				<pre>
+					<code class='language-js'>
+const monicasOrders = orders.filter( order => order.name === 'Monica')
+</code>
+				</pre>
+
+				</li>
+
+
+				<li>Get every other order
+
+				<pre>
+						<code class='language-js'>
+const everyOther = orders.filter( (order, i) => i % 2 === 0 )
+
+</code>
+</pre>
+				</li>
+			</ul>
+
+		</section>
+
+		<!-- ARRAY.MAP (1/2) -->
+
+		<section>
+			
+			<h2>Array.map (1/2)</h2>
+
+			<ul>
+				<li>Runs a function on each element to transform it</li>
+				<li>The result is an array of the same length</li>
+				<li>Example: Get a list of customer names
+
+						<pre>
+								<code class='language-js'>
+const customers = order.map( o => o.customer)
+
+</code>
+</pre>
+				</li>
+			</ul>
+
+		</section>
+
+		<section>
+
+			<h2>Array.map (2/2)</h2>
+
+			<ul>
+				<li>Remember: Never manipulate the objects passed into the function</li>
+				<li>If you want to add properties, use <code>Object.assign</code>
+				
+				<pre>
+<code class='language-js'>// add a field with the order number
+
+const ordersNumbered = orders.map( (o, i) => {
+	return Object.assign({}, o, { orderNumber : i })
+})</code>
+				</pre>
+				
+				</li>
+				<li>If you want to delete properties, return a new object</li>
+
+				<pre>
+<code class='language-js'>// get rid of price field (keep only customer and drink)
+
+const customersAndDrinks = orders.map( o => {
+	return {
+		customer : o.customer,
+		drink : o.drink
+	}
+})</code>
+				</pre>
+			</ul>
+
+		</section>
+
+		<!-- ARRAY.REDUCE -->
+
+		<section>
+			
+			<h2>Array.reduce (1/2)</h2>
+
+			<ul>
+				<li>Used to transform an array into a single value or a different data structure</li>
+				<li>Also referred to as a 'fold' (we will see why)</li>
+
+				<li>Example: Add up coffee shop earnings</li>
+
+				<pre>
+<code class='language-js'>
+const earnings = orders.reduce((agg, cur) => {
+	return agg + cur.price
+}, 0)
+</code></pre>
+
+				<li>An alternative way of adding up earnings</li>
+
+				<pre>
+					<code class='language-js'>
+const earnings = orders.map( o => o.price ).reduce( (agg, cur) => agg + cur, 0)
+</code></pre>
+
+
+				<li>Other functions we can build with reduce include <strong>group</strong>, <strong>count</strong>, <strong>flatten</strong>, ... </li>
+
+			</ul>
+		</section>
+
+
+		<section>
+
+			<ul>
+				<li>Lodash</li>
+
+			</ul>
+
+		</section>
+
+	</div>
+</div>

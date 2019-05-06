@@ -1,0 +1,89 @@
+@import "mq";
+@import "fonts";
+@import "palette";
+// Uncomment for embeds
+//@import "embed";
+// Uncomment for full screen (including immersive article main media)
+//@import "fullscreen";
+.element-atom,
+.interactive-atom {
+    margin: 0 !important;
+}
+
+@import "node_modules/reveal/index";
+@import "node_modules/reveal/theme/night"; 
+@import "node_modules/highlightjs/styles/zenburn";
+@import "node_modules/prismjs/themes/prism-okaidia";
+
+.reveal {
+
+    h1, h2, h3, h4 {
+        font-family: "Guardian Headline";
+        font-weight: bold;
+        letter-spacing: 0;
+    }
+    
+    .pres-title {
+        //font-size: 1.8em;
+        margin-bottom: .9em;
+    }
+
+    .pres-subtitle {
+        font-family: "Guardian Text Sans Web";
+        font-weight: normal;
+        font-size: 1em;
+    }
+
+    font-family: "Guardian Text Sans Web";
+
+    section {
+        text-align: left;
+        margin-left: 5%;
+    }
+
+    .title-slide {
+        text-align: center;
+        margin: 0;
+    }
+
+    pre {
+        max-width: 900px;
+        width: auto;
+    }
+
+    code {
+        font-size: 1.25em;
+    }
+
+    .item--hl {
+        color: $highlight-yellow;
+    }
+
+    .inline-code {
+        font-family: monospace;
+        background: #333;
+        display: inline-block;
+        padding: 0.2em;
+    }
+
+    table {
+
+        margin-top: 1em;
+        border-collapse: collapse;
+    }
+
+    table, td {
+        border: 2px solid white;
+    }
+
+    td {
+        padding: .25em;
+    }
+
+    pre[class*="language-"] {
+        border-radius: 0;
+        background: #333;
+        box-shadow: none;
+
+    }
+}

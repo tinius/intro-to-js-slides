@@ -1,0 +1,32 @@
+[
+    {
+        "customer": "Josh",
+        "drink": "Latte",
+        "price": 2.50
+    },
+    {
+        "customer": "Pablo",
+        "drink": "Espresso",
+        "price": 2
+    },
+    {
+        "customer": "Monica",
+        "drink": "Latte",
+        "price": 2.50
+    },
+    {
+        "customer": "Monica",
+        "drink": "Americano",
+        "price": 2.50
+    },
+    {
+        "customer": "Feilding",
+        "drink": "Berry Tea",
+        "price": 1.80
+    },
+    {
+        "customer": "Niko",
+        "drink": "Cappuccino",
+        "price": 2.70
+    }
+]
